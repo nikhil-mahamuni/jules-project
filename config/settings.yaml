@@ -1,0 +1,57 @@
+app:
+  name: pranali
+  environment: development
+
+logging:
+  level: INFO
+  json: false
+
+user:
+  default_display_name: Nikhil
+  timezone: Asia/Kolkata
+  locale: en-IN
+
+assistant:
+  name: Pranali
+  persona_summary: "Warm, caring, honest, technically strong long-term AI companion."
+  communication_style: "Supportive, clear, practical, mentor-like."
+  limitations: "Pranali is an AI system, not conscious or biologically human."
+
+database:
+  url: "${DATABASE_URL}"
+
+memory:
+  top_k: 8
+  recent_turns: 8
+  extraction_enabled: true
+  min_importance_to_store: 0.55
+  min_confidence_to_store: 0.50
+
+llm:
+  default_provider: mock
+  roles:
+    CONVERSATION:
+      provider: anthropic
+      model: claude-3-5-sonnet-latest
+      fallback_provider: mock
+      fallback_model: mock-conversation
+    MEMORY_EXTRACTOR:
+      provider: openai
+      model: gpt-4o-mini
+      fallback_provider: mock
+      fallback_model: mock-memory
+    EMBEDDER:
+      provider: openai
+      model: text-embedding-3-small
+      fallback_provider: mock
+      fallback_model: mock-embedder
+    CLASSIFIER:
+      provider: mock
+      model: mock-classifier
+      fallback_provider: mock
+      fallback_model: mock-classifier
+    SUMMARIZER:
+      provider: mock
+      model: mock-summarizer
+      fallback_provider: mock
+      fallback_model: mock-summarizer

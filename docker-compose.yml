@@ -1,0 +1,16 @@
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: pranali_db
+    restart: always
+    environment:
+      POSTGRES_DB: pranali
+      POSTGRES_USER: pranali
+      POSTGRES_PASSWORD: pranali
+    ports:
+      - "5432:5432"
+    volumes:
+      - pranali_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  pranali_postgres_data:
