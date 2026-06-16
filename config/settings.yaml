@@ -1,0 +1,111 @@
+app:
+  name: pranali
+  environment: development
+
+logging:
+  level: INFO
+  json: false
+
+user:
+  default_display_name: Nikhil
+  timezone: Asia/Kolkata
+  locale: en-IN
+
+assistant:
+  name: Pranali
+  persona_summary: "Warm, caring, honest, technically strong long-term AI companion."
+  communication_style: "Supportive, clear, practical, mentor-like."
+  limitations: "Pranali is an AI system, not conscious or biologically human."
+
+database:
+  url: "${DATABASE_URL}"
+
+memory:
+  top_k: 8
+  recent_turns: 8
+  extraction_enabled: true
+  min_importance_to_store: 0.55
+  min_confidence_to_store: 0.50
+  consolidation_enabled: true
+  reflection_enabled: true
+  decay_enabled: true
+  archive_enabled: true
+  confirmation_enabled: true
+
+events:
+  enabled: true
+  queue_max_size: 2000
+  dispatcher_workers: 4
+
+concurrency:
+  thread_pool_workers: 4
+  process_pool_workers: 2
+  session_lock_enabled: true
+
+tasks:
+  enabled: true
+  worker_count: 4
+  queue_max_size: 1000
+  max_retries: 3
+  task_timeout_seconds: 60
+
+audio:
+  enabled: true
+  input_enabled: true
+  output_enabled: true
+  recorder_provider: local
+  stt_provider: mock
+  tts_provider: mock
+  audio_dir: "./runtime/audio"
+  input_sample_rate: 16000
+  channels: 1
+  record_seconds: 5
+  silence_detection_enabled: false
+  silence_seconds: 1.0
+  voice_name: "default"
+
+stt:
+  provider: mock
+  whisper_model_size: base
+  openai_model: whisper-1
+
+tts:
+  provider: mock
+  piper_model_path: ""
+  piper_binary_path: ""
+  openai_model: gpt-4o-mini-tts
+  voice_name: "default"
+
+cache:
+  provider: memory
+  redis_url: "redis://localhost:6379/0"
+  default_ttl_seconds: 3600
+
+llm:
+  default_provider: mock
+  roles:
+    CONVERSATION:
+      provider: anthropic
+      model: claude-3-5-sonnet-latest
+      fallback_provider: mock
+      fallback_model: mock-conversation
+    MEMORY_EXTRACTOR:
+      provider: openai
+      model: gpt-4o-mini
+      fallback_provider: mock
+      fallback_model: mock-memory
+    EMBEDDER:
+      provider: openai
+      model: text-embedding-3-small
+      fallback_provider: mock
+      fallback_model: mock-embedder
+    CLASSIFIER:
+      provider: mock
+      model: mock-classifier
+      fallback_provider: mock
+      fallback_model: mock-classifier
+    SUMMARIZER:
+      provider: mock
+      model: mock-summarizer
+      fallback_provider: mock
+      fallback_model: mock-summarizer
