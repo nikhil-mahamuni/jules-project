@@ -1,7 +1,7 @@
 import asyncio
 import structlog
 from abc import ABC, abstractmethod
-from typing import Callable, Coroutine, Dict, List, Any
+from typing import Callable, Coroutine, Dict, List
 from .schemas import PranaliEvent
 from .types import EventType
 from src.pranali.config import settings

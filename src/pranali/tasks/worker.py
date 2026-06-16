@@ -1,6 +1,6 @@
 import asyncio
 import structlog
-from typing import Callable, Coroutine, Dict, Any, Optional
+from typing import Callable, Coroutine, Dict, Any
 from src.pranali.tasks.queue import InProcessTaskQueue
 from src.pranali.tasks.schemas import BackgroundTask
 from src.pranali.utils.time import now

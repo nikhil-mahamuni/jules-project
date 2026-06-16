@@ -48,27 +48,6 @@ async def _run_voice():
     loop_mgr = VoiceLoopManager(recorder, stt, bus)
     task_supervisor = TaskSupervisor()
 
-    async def extraction_handler(payload: dict):
-        user_id = uuid.UUID(payload["user_id"])
-        user_name = payload["user_name"]
-        recent_turns = payload["recent_turns"]
-        source_event_id = uuid.UUID(payload["source_event_id"]) if payload.get("source_event_id") else None
-
-        # New DB session for background task
-        AsyncSessionFactory = get_session_factory()
-        async with AsyncSessionFactory() as background_session:
-            from src.pranali.llm.router import LLMRouter
-            from src.pranali.memory.service import MemoryService
-            memory_service = MemoryService(background_session, LLMRouter())
-            await memory_service.extract_and_store_from_turn(
-                user_id=user_id,
-                user_name=user_name,
-                recent_turns=recent_turns,
-                source_event_id=source_event_id
-            )
-
-    task_supervisor.register_handler(TaskType.MEMORY_EXTRACTION, extraction_handler)
-
     try:
         AsyncSessionFactory = get_session_factory()
         async with AsyncSessionFactory() as session:
